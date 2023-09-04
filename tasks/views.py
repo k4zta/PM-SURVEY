@@ -4,22 +4,25 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.models import User
 from django.contrib import messages
+from tasks.models import Estudiante
+
 
 
 def iniciar_sesion(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            messages.success(request, f'Bienvenido, {username}!')
-            return redirect('estudiante/')
-        else:
-            error_msg = "Usuario o contraseña incorrectos"
-            return render(request, 'home.html', {'error_msg': error_msg})
+        # Autenticar al estudiante
+        user = authenticate(request, username=username, password=password)
 
-    return render(request, 'home.html')
+        if user is not None:
+            # Iniciar sesión si las credenciales son válidas
+            login(request, user)
+            return redirect('estudiante/')  # Cambia 'inicio' por la URL de tu página de inicio
+        else:
+            messages.error(request, 'Código o grupo incorrecto. Por favor, inténtalo de nuevo.')
+
+    return render(request, 'home.html')  # Cambia 'login.html' por el nombre de tu plantilla de inicio de sesión
 
 
 def estudiante(request):

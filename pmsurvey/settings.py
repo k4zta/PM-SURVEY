@@ -77,14 +77,18 @@ WSGI_APPLICATION = 'pmsurvey.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME':'tasksdb',
+        'NAME':'railway',
         'USER':'postgres',
-        'PASSWORD':'cr7thebest',
-        'HOST':'localhost',
-        'PORT':'5432',
+        'PASSWORD':'2FpJo1JWtUrVxiuEtrTy',
+        'HOST':'containers-us-west-66.railway.app',
+        'PORT':'5903',
     }
 }
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
+AUTH_USER_MODEL = 'tasks.Estudiante'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
